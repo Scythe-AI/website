@@ -1,15 +1,10 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import Modal from '../utils/Modal';
 
 import HeroImage from '../images/hero-image-01.jpg';
 
 function HeroHome() {
   const [videoModalOpen, setVideoModalOpen] = useState(false);
-  const video = useRef(null);
-
-  useEffect(() => {
-    videoModalOpen ? video.current.play() : video.current.pause();
-  }, [videoModalOpen]);    
 
   return (
     <section>
@@ -42,10 +37,10 @@ function HeroHome() {
           {/* Section header */}
           <div className="max-w-3xl mx-auto text-center pb-12 md:pb-16">
             <h1 className="h1 mb-4" data-aos="fade-up">
-              Landing template for startups
+              Scythe AI
             </h1>
             <p className="text-xl text-gray-400 mb-8" data-aos="fade-up" data-aos-delay="200">
-              Our landing page template works on all devices, so you only have to set it up once, and get beautiful results forever.
+            The first search engine built for private equity that leverages machine learning & LLMs to assess company potential.
             </p>
             <div className="max-w-xs mx-auto sm:max-w-none sm:flex sm:justify-center">
               <div data-aos="fade-up" data-aos-delay="400">
@@ -98,10 +93,7 @@ function HeroHome() {
             {/* Modal */}
             <Modal id="modal" ariaLabel="modal-headline" show={videoModalOpen} handleClose={() => setVideoModalOpen(false)}>
               <div className="relative pb-9/16">
-                <video ref={video} className="absolute w-full h-full" width="1920" height="1080" loop autoPlay controls>
-                  <source src="/videos/video.mp4" type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
+                <iframe className="absolute w-full h-full" src="https://player.vimeo.com/video/174002812" title="Video" allowFullScreen></iframe>
               </div>
             </Modal>
           </div>

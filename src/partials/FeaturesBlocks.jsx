@@ -8,8 +8,8 @@ function FeaturesBlocks() {
 
           {/* Section header */}
           <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
-            <h2 className="h2 mb-4">The majority our customers do not understand their workflows.</h2>
-            <p className="text-xl text-gray-400">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <h2 className="h2 mb-4">Private equity and venture capital firms must perform due diligence to determine which deals to make.</h2>
+            <p className="text-xl text-gray-400">This process is often costly, complex, and inaccurate. </p>
           </div>
 
           {/* Items */}
