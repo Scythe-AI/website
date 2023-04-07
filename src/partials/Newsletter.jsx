@@ -1,6 +1,35 @@
-import React from 'react';
+import React, { useState } from "react";
+import { getFirestore, setDoc, doc} from "firebase/firestore";
+import { initializeApp } from "firebase/app";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyD5dJR5Xrb6zg1mtYPqWyFoq9mKL5deAA0",
+  authDomain: "scythe-ai.firebaseapp.com",
+  projectId: "scythe-ai",
+  storageBucket: "scythe-ai.appspot.com",
+  messagingSenderId: "356464318622",
+  appId: "1:356464318622:web:16b707fcdddaa93e50438f",
+  measurementId: "G-88TTYBB5CG"
+};
+
+const app = initializeApp(firebaseConfig);
 
 function Newsletter() {
+  const [formValue, setFormValue] = useState("");
+  const [hasSubscribed, setHasSubscribed] = useState("");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (formValue === "") return;
+    const db = getFirestore(app);
+    const docRef = await setDoc(doc(db, "subscribers", formValue), {
+      email: formValue,
+    });
+    setFormValue("");
+    setHasSubscribed("Thank you for subscribing!");
+  };
+  const handleChange = (e) => {
+    setFormValue(e.target.value);
+  };
   return (
     <section>
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -26,18 +55,19 @@ function Newsletter() {
             {/* CTA content */}
             <div className="mb-6 lg:mr-16 lg:mb-0 text-center lg:text-left lg:w-1/2">
               <h3 className="h3 text-white mb-2">Stay in the loop</h3>
-              <p className="text-purple-200 text-lg">Request to join our newsletter for developments.</p>
+              <p className="text-purple-200 text-lg">Request to join our newsletter for developments. We'll reach out!</p>
             </div>
 
             {/* CTA form */}
-            <form className="w-full lg:w-1/2">
-              <div className="flex flex-col sm:flex-row justify-center max-w-xs mx-auto sm:max-w-md lg:max-w-none">
-                <input type="email" className="w-full appearance-none bg-purple-700 border border-purple-500 focus:border-purple-300 rounded-sm px-4 py-3 mb-2 sm:mb-0 sm:mr-2 text-white placeholder-purple-400" placeholder="Your best email…" aria-label="Your best email…" />
-                <a className="btn text-purple-600 bg-purple-100 hover:bg-white shadow" href="mailto:ethayu1@gmail.com">Subscribe</a>
-              </div>
-              {/* Success message */}
-              {/* <p className="text-center lg:text-left lg:absolute mt-2 opacity-75 text-sm">Thanks for subscribing!</p> */}
-            </form>
+            <fieldset disabled={hasSubscribed == "Thank you for subscribing!"}>
+              <form onSubmit={handleSubmit}>
+                <div className="flex flex-col sm:flex-row justify-center max-w-xs mx-auto sm:max-w-md lg:max-w-none">
+                  <input type="email" className="w-full appearance-none bg-purple-700 border border-purple-500 focus:border-purple-300 rounded-sm px-4 py-3 mb-2 sm:mb-0 sm:mr-2 text-white placeholder-purple-400" placeholder="Your best email…" value={formValue} onChange={handleChange} aria-label="Your best email…"/>
+                  <button className="btn text-purple-600 bg-purple-100 hover:bg-white shadow" >Subscribe</button>
+                </div>
+                <p className="text-center lg:text-left lg:absolute mt-2 opacity-75 text-sm">{hasSubscribed}</p>
+              </form>
+            </fieldset>
 
           </div>
 
