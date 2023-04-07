@@ -45,7 +45,7 @@ function HeroHome() {
             <div className="max-w-xs mx-auto sm:max-w-none sm:flex sm:justify-center">
               <div data-aos="fade-up" data-aos-delay="400">
                 <a className="btn text-white bg-purple-600 hover:bg-purple-700 w-full mb-4 sm:w-auto sm:mb-0" href="#form">
-                  Get in Touch
+                  Get in touch
                 </a>
               </div>
               <div data-aos="fade-up" data-aos-delay="600">
