@@ -91,7 +91,7 @@ function FeaturesZigzag() {
                 <div className="md:pr-4 lg:pr-12 xl:pr-16">
                   <div className="font-architects-daughter text-xl text-purple-600 mb-2">Stage 1.</div>
                   <h3 className="h3 mb-3">A Company Success and Deal Potential/Size Predictor</h3>
-                  <p className="text-xl text-gray-400 mb-4">We’ve already made sig process on the first stage, having developed a model with an 85% success rate. This already outperforms Pitchbooks VC predictor released last week, which leads industry with 74%. We've already developed a model with:</p>
+                  <p className="text-xl text-gray-400 mb-4">A firm will give the model due diligence data, such as cash flow, attrition rates, etc., and we will return a confidence score. We've already developed such a model with:</p>
                   <ul className="text-lg text-gray-400 -mb-2">
                     <li className="flex items-center mb-2">
                       <svg className="w-3 h-3 fill-current text-green-500 mr-2 shrink-0" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
