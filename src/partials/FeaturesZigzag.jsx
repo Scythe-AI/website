@@ -6,7 +6,7 @@ import "swiper/css";
 import "swiper/css/effect-creative";
 
 // import required modules
-import { EffectCreative, Pagination } from "swiper";
+import { EffectCreative, Pagination, Navigation, EffectFade } from "swiper";
 import "swiper/swiper-bundle.css";
 
 import FeatImage02 from '../images/stage2.png';
@@ -47,6 +47,7 @@ function FeaturesZigzag() {
               <Swiper
                 grabCursor={true}
                 effect={"creative"}
+                navigation={true}
                 slidesPerView={1}
                 spaceBetween={30}
                 loop={true}
@@ -56,21 +57,19 @@ function FeaturesZigzag() {
                 }}
                 style={{
                   "--swiper-pagination-color": "#694efd",
+                  "--swiper-navigation-color": "#694efd",
                   "--swiper-pagination-bullet-inactive-color": "#f3ff33",
                 }}
                 creativeEffect={{
                   prev: {
                     shadow: true,
-                    translate: [0, 0, -800],
-                    rotate: [180, 0, 0],
+                    translate: [0, 0, -400],
                   },
                   next: {
-                    shadow: true,
-                    translate: [0, 0, -800],
-                    rotate: [-180, 0, 0],
+                    translate: ["100%", 0, 0],
                   },
                 }}
-                modules={[EffectCreative, Pagination]}
+                modules={[EffectCreative, Pagination, Navigation]}
                 className="mySwiper"
               >
                 {/* <SwiperSlide><img className="max-w-full mx-auto md:max-w-none h-auto" src={ confusionMatrix }/></SwiperSlide> */}
