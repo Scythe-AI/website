@@ -1,8 +1,27 @@
 import React from 'react';
+import { Swiper, SwiperSlide } from "swiper/react";
 
-import FeatImage01 from '../images/features-03-image-01.png';
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/effect-creative";
+
+// import required modules
+import { EffectCreative, Pagination } from "swiper";
+import "swiper/swiper-bundle.css";
+
 import FeatImage02 from '../images/stage2.png';
 import FeatImage03 from '../images/features-03-image-03.png';
+import confusionMatrix from "../images/ModelImages/confusionMatrix.png"
+import diamondseaborn from "../images/ModelImages/diamondseaborn.png"
+import download from "../images/ModelImages/download.png"
+import heatmaprocket from "../images/ModelImages/heatmaprocket.png"
+import heatmaptop8 from "../images/ModelImages/heatmaptop8.png"
+import precisionrecall from "../images/ModelImages/precision-recall.png"
+import purpleredsuccess from "../images/ModelImages/purpleredsuccess.png"
+import redgreenhistogram from "../images/ModelImages/redgreenhistogram.png"
+import redpurplesuccesslabeled from "../images/ModelImages/squarefrontpageimage.png"
+import rfcalibration from "../images/ModelImages/rfcalibration.png"
+import RocCurve from "../images/ModelImages/RocCurve.png"
 
 function FeaturesZigzag() {
   return (
@@ -24,7 +43,49 @@ function FeaturesZigzag() {
             <div className="md:grid md:grid-cols-12 md:gap-6 items-center">
               {/* Image */}
               <div className="max-w-xl md:max-w-none md:w-full mx-auto md:col-span-5 lg:col-span-6 mb-8 md:mb-0 md:order-1" data-aos="fade-up">
-                <img className="max-w-full mx-auto md:max-w-none h-auto" src={FeatImage01} width="540" height="405" alt="Features 01" />
+              <div class="swiper-pagination"></div>
+              <Swiper
+                grabCursor={true}
+                effect={"creative"}
+                slidesPerView={1}
+                spaceBetween={30}
+                loop={true}
+                pagination={{
+                  clickable: true,
+                  dynamicBullets: true
+                }}
+                style={{
+                  "--swiper-pagination-color": "#694efd",
+                  "--swiper-pagination-bullet-inactive-color": "#f3ff33",
+                }}
+                creativeEffect={{
+                  prev: {
+                    shadow: true,
+                    translate: [0, 0, -800],
+                    rotate: [180, 0, 0],
+                  },
+                  next: {
+                    shadow: true,
+                    translate: [0, 0, -800],
+                    rotate: [-180, 0, 0],
+                  },
+                }}
+                modules={[EffectCreative, Pagination]}
+                className="mySwiper"
+              >
+                {/* <SwiperSlide><img className="max-w-full mx-auto md:max-w-none h-auto" src={ confusionMatrix }/></SwiperSlide> */}
+                <SwiperSlide><img className="max-w-full mx-auto md:max-w-none h-auto" src={ redpurplesuccesslabeled } width="540" height="2505" alt="Features 02" /></SwiperSlide>
+                <SwiperSlide><img className="max-w-full mx-auto md:max-w-none h-auto" src={ diamondseaborn } width="540" height="405" alt="Features 02" /></SwiperSlide>
+                {/* <SwiperSlide><img className="max-w-full mx-auto md:max-w-none h-auto" src={ download } width="540" height="405" alt="Features 02" /></SwiperSlide> */}
+                <SwiperSlide><img className="max-w-full mx-auto md:max-w-none h-auto" src={ heatmaprocket } width="540" height="405" alt="Features 02" /></SwiperSlide>
+                {/* <SwiperSlide><img className="max-w-full mx-auto md:max-w-none h-auto" src={ heatmaptop8 } width="540" height="405" alt="Features 02" /></SwiperSlide> */}
+                <SwiperSlide><img className="max-w-full mx-auto md:max-w-none h-auto" src={ precisionrecall } width="540" height="405" alt="Features 02" /></SwiperSlide>
+                {/* <SwiperSlide><img className="max-w-full mx-auto md:max-w-none h-auto" src={ purpleredsuccess } width="540" height="405" alt="Features 02" /></SwiperSlide> */}
+                {/* <SwiperSlide><img className="max-w-full mx-auto md:max-w-none h-auto" src={ redgreenhistogram } width="540" height="405" alt="Features 02" /></SwiperSlide> */}
+                <SwiperSlide><img className="max-w-full mx-auto md:max-w-none h-auto" src={ rfcalibration } width="540" height="405" alt="Features 02" /></SwiperSlide>
+                <SwiperSlide><img className="max-w-full mx-auto md:max-w-none h-auto" src={ RocCurve } width="540" height="405" alt="Features 02" /></SwiperSlide>
+              
+              </Swiper>
               </div>
               {/* Content */}
               <div className="max-w-xl md:max-w-none md:w-full mx-auto md:col-span-7 lg:col-span-6" data-aos="fade-right">
@@ -60,7 +121,7 @@ function FeaturesZigzag() {
             <div className="md:grid md:grid-cols-12 md:gap-6 items-center">
               {/* Image */}
               <div className="max-w-xl md:max-w-none md:w-full mx-auto md:col-span-5 lg:col-span-6 mb-8 md:mb-0 rtl" data-aos="fade-up">
-                <img className="max-w-full mx-auto md:max-w-none h-auto" src={FeatImage02} width="540" height="405" alt="Features 02" />
+                <img className="max-w-full mx-auto md:max-w-none h-auto" src={FeatImage02} width="540" height="405" alt="An Early Look at the Sourcing Engine." />
               </div>
               {/* Content */}
               <div className="max-w-xl md:max-w-none md:w-full mx-auto md:col-span-7 lg:col-span-6" data-aos="fade-left">
