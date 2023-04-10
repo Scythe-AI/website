@@ -6,7 +6,7 @@ import "swiper/css";
 import "swiper/css/effect-creative";
 
 // import required modules
-import { EffectCreative, Pagination, Navigation, EffectFade } from "swiper";
+import { EffectCreative, Pagination, Autoplay, Keyboard, Mousewheel } from "swiper";
 import "swiper/swiper-bundle.css";
 
 import FeatImage02 from '../images/stage2.png';
@@ -47,7 +47,14 @@ function FeaturesZigzag() {
               <Swiper
                 grabCursor={true}
                 effect={"creative"}
-                navigation={true}
+                autoplay={{
+                  delay: 2500,
+                  disableOnInteraction: true,
+                }}
+                keyboard={{
+                  enabled: true,
+                }}
+                mousewheel={true}
                 slidesPerView={1}
                 spaceBetween={30}
                 loop={true}
@@ -69,7 +76,7 @@ function FeaturesZigzag() {
                     translate: ["100%", 0, 0],
                   },
                 }}
-                modules={[EffectCreative, Pagination, Navigation]}
+                modules={[EffectCreative, Pagination, Autoplay, Keyboard, Mousewheel]}
                 className="mySwiper"
               >
                 {/* <SwiperSlide><img className="max-w-full mx-auto md:max-w-none h-auto" src={ confusionMatrix }/></SwiperSlide> */}
