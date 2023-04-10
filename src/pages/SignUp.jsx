@@ -4,8 +4,22 @@ import { Link } from 'react-router-dom';
 import Header from '../partials/Header';
 import PageIllustration from '../partials/PageIllustration';
 import Banner from '../partials/Banner';
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 function SignUp() {
+  const auth = getAuth(app);
+  const registerUser = createUserWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+    console.log(user);
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.log(errorCode, errorMessage);
+  });
+
   return (
     <div className="flex flex-col min-h-screen overflow-hidden">
 
@@ -26,12 +40,12 @@ function SignUp() {
 
               {/* Page header */}
               <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
-                <h1 className="h1">Welcome. We exist to make entrepreneurship easier.</h1>
+                <h1 className="h1">Welcome to Scythe. Register for early access.</h1>
               </div>
 
               {/* Form */}
               <div className="max-w-sm mx-auto">
-                <form>
+                <form onSubmit>
                   <div className="flex flex-wrap -mx-3">
                     <div className="w-full px-3">
                       <button className="btn px-0 text-white bg-red-600 hover:bg-red-700 w-full relative flex items-center">
@@ -74,9 +88,9 @@ function SignUp() {
                       <input id="password" type="password" className="form-input w-full text-gray-300" placeholder="Password (at least 10 characters)" required />
                     </div>
                   </div>
-                  <div className="text-sm text-gray-500 text-center">
+                  {/* <div className="text-sm text-gray-500 text-center">
                     I agree to be contacted by Open PRO about this offer as per the Open PRO <Link to="#" className="underline text-gray-400 hover:text-gray-200 hover:no-underline transition duration-150 ease-in-out">Privacy Policy</Link>.
-                                </div>
+                                </div> */}
                   <div className="flex flex-wrap -mx-3 mt-6">
                     <div className="w-full px-3">
                       <button className="btn text-white bg-purple-600 hover:bg-purple-700 w-full">Sign up</button>
@@ -84,7 +98,7 @@ function SignUp() {
                   </div>
                 </form>
                 <div className="text-gray-400 text-center mt-6">
-                  Already using Open PRO? <Link to="signin" className="text-purple-600 hover:text-gray-200 transition duration-150 ease-in-out">Sign in</Link>
+                  Already Registered? <Link to="../signin" className="text-purple-600 hover:text-gray-200 transition duration-150 ease-in-out">Sign in</Link>
                 </div>
               </div>
 
