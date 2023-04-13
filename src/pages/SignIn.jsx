@@ -5,7 +5,56 @@ import Header from '../partials/Header';
 import PageIllustration from '../partials/PageIllustration';
 import Banner from '../partials/Banner';
 
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { firebaseConfig } from "../Constants";
+import { initializeApp } from "firebase/app";
+
+
 function SignIn() {
+
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  }; 
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const signIn = async (e) => {
+    e.preventDefault();
+    await signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed in 
+      const user = userCredential.user;
+      console.log(user);
+      if (user.emailVerified) {
+        //TODO: redirect to dashboard
+      } else {
+        alert('Your account has not been verified yet. Please wait for one of our representatives to contact you to verify your account.');
+      }
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, errorMessage);
+      if (errorCode === 'auth/wrong-password') {
+        alert('Wrong password.');
+      } else if (errorCode === 'auth/user-not-found') {
+        alert('This email is not registered. Please sign up.');
+      } else if (errorCode === 'auth/invalid-email') {
+        alert('This email is invalid.');
+      } else if (errorCode === 'auth/user-disabled') {
+        alert('This account has been disabled.');
+      }
+    });
+  }
+
+
   return (
     <div className="flex flex-col min-h-screen overflow-hidden">
 
@@ -26,12 +75,12 @@ function SignIn() {
 
               {/* Page header */}
               <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
-                <h1 className="h1">Welcome back. We exist to make entrepreneurship easier.</h1>
+                <h1 className="h1">Welcome back. An Early Look at Scythe is Awaiting.</h1>
               </div>
 
               {/* Form */}
               <div className="max-w-sm mx-auto">
-                <form>
+                {/* <form>
                   <div className="flex flex-wrap -mx-3">
                     <div className="w-full px-3">
                       <button className="btn px-0 text-white bg-red-600 hover:bg-red-700 w-full relative flex items-center">
@@ -48,18 +97,18 @@ function SignIn() {
                   <div className="border-t border-gray-700 border-dotted grow mr-3" aria-hidden="true"></div>
                   <div className="text-gray-400">Or, sign in with your email</div>
                   <div className="border-t border-gray-700 border-dotted grow ml-3" aria-hidden="true"></div>
-                </div>
-                <form>
+                </div> */}
+                <form onSubmit={signIn}>
                   <div className="flex flex-wrap -mx-3 mb-4">
                     <div className="w-full px-3">
                       <label className="block text-gray-300 text-sm font-medium mb-1" htmlFor="email">Email</label>
-                      <input id="email" type="email" className="form-input w-full text-gray-300" placeholder="you@yourcompany.com" required />
+                      <input id="email" type="email" className="form-input w-full text-gray-300" placeholder="you@yourcompany.com" value={email} onChange={handleEmailChange} required />
                     </div>
                   </div>
                   <div className="flex flex-wrap -mx-3 mb-4">
                     <div className="w-full px-3">
                       <label className="block text-gray-300 text-sm font-medium mb-1" htmlFor="password">Password</label>
-                      <input id="password" type="password" className="form-input w-full text-gray-300" placeholder="Password (at least 10 characters)" required />
+                      <input id="password" type="password" className="form-input w-full text-gray-300" placeholder="Password (at least 10 characters)" value={password} onChange={handlePasswordChange} required />
                     </div>
                   </div>
                   <div className="flex flex-wrap -mx-3 mb-4">

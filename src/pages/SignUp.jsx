@@ -5,20 +5,63 @@ import Header from '../partials/Header';
 import PageIllustration from '../partials/PageIllustration';
 import Banner from '../partials/Banner';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { firebaseConfig } from "../Constants";
+import { initializeApp } from "firebase/app";
+import { getFirestore, setDoc, doc} from "firebase/firestore";
+
 
 function SignUp() {
+
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [name, setName] = React.useState('');
+  const [company, setCompany] = React.useState('');
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  }; 
+  
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  };
+
+  const handleCompanyChange = (e) => {
+    setCompany(e.target.value);
+  };
+
+  const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
-  const registerUser = createUserWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    // Signed in 
-    const user = userCredential.user;
-    console.log(user);
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    console.log(errorCode, errorMessage);
-  });
+  const db = getFirestore(app);
+  const registerUser = async (e) => {
+    e.preventDefault();
+    await createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed in 
+      const user = userCredential.user;
+      console.log(user);
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, errorMessage);
+      if (errorCode === 'auth/weak-password') {
+        alert('The password is too weak.');
+      } else if (errorCode === 'auth/email-already-in-use') {
+        alert('This email is already registered. If you just signed up, please wait for one of our representatives to contact you to verify your account.');
+      } else if (errorCode === 'auth/invalid-email') {
+        alert('This email is invalid.');
+      }
+    });
+    const docRef = await setDoc(doc(db, "users", email), {
+      email: email,
+      name: name,
+      company: company
+    });
+  }
 
   return (
     <div className="flex flex-col min-h-screen overflow-hidden">
@@ -40,12 +83,12 @@ function SignUp() {
 
               {/* Page header */}
               <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
-                <h1 className="h1">Welcome to Scythe. Register for early access.</h1>
+                <h1 className="h1">Welcome to Scythe. Register for Early Access.</h1>
               </div>
 
               {/* Form */}
               <div className="max-w-sm mx-auto">
-                <form onSubmit>
+                {/* <form>
                   <div className="flex flex-wrap -mx-3">
                     <div className="w-full px-3">
                       <button className="btn px-0 text-white bg-red-600 hover:bg-red-700 w-full relative flex items-center">
@@ -62,30 +105,30 @@ function SignUp() {
                   <div className="border-t border-gray-700 border-dotted grow mr-3" aria-hidden="true"></div>
                   <div className="text-gray-400">Or, register with your email</div>
                   <div className="border-t border-gray-700 border-dotted grow ml-3" aria-hidden="true"></div>
-                </div>
-                <form>
+                </div> */}
+                <form onSubmit={registerUser}>
                   <div className="flex flex-wrap -mx-3 mb-4">
                     <div className="w-full px-3">
                       <label className="block text-gray-300 text-sm font-medium mb-1" htmlFor="full-name">Full Name <span className="text-red-600">*</span></label>
-                      <input id="full-name" type="text" className="form-input w-full text-gray-300" placeholder="First and last name" required />
+                      <input id="full-name" type="text" className="form-input w-full text-gray-300" placeholder="First and last name" value={name} onChange={handleNameChange} required />
                     </div>
                   </div>
                   <div className="flex flex-wrap -mx-3 mb-4">
                     <div className="w-full px-3">
                       <label className="block text-gray-300 text-sm font-medium mb-1" htmlFor="company-name">Company Name <span className="text-red-600">*</span></label>
-                      <input id="company-name" type="text" className="form-input w-full text-gray-300" placeholder="Your company or app name" required />
+                      <input id="company-name" type="text" className="form-input w-full text-gray-300" placeholder="Your company or app name" value={company} onChange={handleCompanyChange} required />
                     </div>
                   </div>
                   <div className="flex flex-wrap -mx-3 mb-4">
                     <div className="w-full px-3">
                       <label className="block text-gray-300 text-sm font-medium mb-1" htmlFor="email">Work Email <span className="text-red-600">*</span></label>
-                      <input id="email" type="email" className="form-input w-full text-gray-300" placeholder="you@yourcompany.com" required />
+                      <input id="email" type="email" className="form-input w-full text-gray-300" placeholder="you@yourcompany.com" value={email} onChange={handleEmailChange} required />
                     </div>
                   </div>
                   <div className="flex flex-wrap -mx-3 mb-4">
                     <div className="w-full px-3">
                       <label className="block text-gray-300 text-sm font-medium mb-1" htmlFor="password">Password <span className="text-red-600">*</span></label>
-                      <input id="password" type="password" className="form-input w-full text-gray-300" placeholder="Password (at least 10 characters)" required />
+                      <input id="password" type="password" className="form-input w-full text-gray-300" placeholder="Password (at least 10 characters)" value={password} onChange={handlePasswordChange} required />
                     </div>
                   </div>
                   {/* <div className="text-sm text-gray-500 text-center">
