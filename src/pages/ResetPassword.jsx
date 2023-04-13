@@ -5,7 +5,39 @@ import Header from '../partials/Header';
 import PageIllustration from '../partials/PageIllustration';
 import Banner from '../partials/Banner';
 
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+import { firebaseConfig } from "../Constants";
+import { initializeApp } from "firebase/app";
+
 function ResetPassword() {
+
+  const [email, setEmail] = React.useState('');
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const resetPassword = async (e) => {
+    e.preventDefault();
+    await sendPasswordResetEmail(auth, email).then((userCredential) => {
+      alert('Password reset email sent! Check your inbox.');
+      const user = userCredential.user;
+      console.log(user);
+    }).catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, errorMessage);
+      if (errorCode === 'auth/invalid-email') {
+        alert('This email is invalid.');
+      } else if (errorCode === 'auth/user-not-found') {
+        alert('This email is not registered. Please sign up.');
+      }
+    });
+  }
+
   return (
     <div className="flex flex-col min-h-screen overflow-hidden">
 
@@ -32,11 +64,11 @@ function ResetPassword() {
 
               {/* Form */}
               <div className="max-w-sm mx-auto">
-                <form>
+                <form onSubmit={resetPassword}>
                   <div className="flex flex-wrap -mx-3 mb-4">
                     <div className="w-full px-3">
                       <label className="block text-gray-300 text-sm font-medium mb-1" htmlFor="email">Email</label>
-                      <input id="email" type="email" className="form-input w-full text-gray-300" placeholder="you@yourcompany.com" required />
+                      <input id="email" type="email" className="form-input w-full text-gray-300" placeholder="you@yourcompany.com" value={email} onChange={handleEmailChange} required />
                     </div>
                   </div>
                   <div className="flex flex-wrap -mx-3 mt-6">
