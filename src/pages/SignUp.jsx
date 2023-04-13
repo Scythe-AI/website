@@ -43,6 +43,7 @@ function SignUp() {
       // Signed in 
       const user = userCredential.user;
       console.log(user);
+      alert ('You have successfully registered. Please wait for one of our representatives to contact you to verify your account. Thank you for your patience.');
     })
     .catch((error) => {
       const errorCode = error.code;
