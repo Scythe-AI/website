@@ -10,7 +10,7 @@ import { firebaseConfig } from "../Constants";
 import { initializeApp } from "firebase/app";
 
 
-function SignIn() {
+function Demo() {
 
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -33,7 +33,7 @@ function SignIn() {
       const user = userCredential.user;
       console.log(user);
       if (user.emailVerified) {
-        window.location.href = '/demo';
+        //TODO: redirect to dashboard
       } else {
         alert('Your account has not been verified yet. Please wait for one of our representatives to contact you to verify your account.');
       }
@@ -145,4 +145,4 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+export default Demo;
