@@ -13,10 +13,9 @@ initializeApp({
 defaultAuth = getAuth();
 
 const express = require('express');
-const cors = require('cors');
 
-const app = express();
-app.get('/:uid', (req, res) => {
+const appV = express();
+appV.get('/:uid', (req, res) => {
     defaultAuth.updateUser(req.params.uid, {emailVerified: true})
     .then((userRecord) => {
         console.log('Successfully updated user', userRecord.toJSON());
@@ -28,5 +27,19 @@ app.get('/:uid', (req, res) => {
     });
   })
 
-exports.verifyEmail = functions.https.onRequest(app);
+const appU = express();
+appV.get('/:uid', (req, res) => {
+    defaultAuth.updateUser(req.params.uid, {emailVerified: false})
+    .then((userRecord) => {
+        console.log('Successfully updated user', userRecord.toJSON());
+        res.send('Successfully updated user');
+    })
+    .catch((error) => {
+        console.log('Error updating user:', error);
+        res.send('Error updating user');
+    });
+  })
 
+exports.verifyEmail = functions.https.onRequest(appV);
+
+exports.unverifyEmail = functions.https.onRequest(appU);
