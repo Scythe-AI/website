@@ -28,7 +28,7 @@ appV.get('/:uid', (req, res) => {
   })
 
 const appU = express();
-appV.get('/:uid', (req, res) => {
+appU.get('/:uid', (req, res) => {
     defaultAuth.updateUser(req.params.uid, {emailVerified: false})
     .then((userRecord) => {
         console.log('Successfully updated user', userRecord.toJSON());
