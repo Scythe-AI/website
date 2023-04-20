@@ -41,9 +41,9 @@ function SignUp() {
     await createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in 
+      alert('You have successfully registered. Please wait for one of our representatives to contact you to verify your account. Thank you for your patience.');
       const user = userCredential.user;
       console.log(user);
-      alert ('You have successfully registered. Please wait for one of our representatives to contact you to verify your account. Thank you for your patience.');
     })
     .catch((error) => {
       const errorCode = error.code;
